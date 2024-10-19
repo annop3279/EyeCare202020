@@ -1,4 +1,4 @@
-package com.ankn.eyecare202020.ui.theme
+package com.ankn.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

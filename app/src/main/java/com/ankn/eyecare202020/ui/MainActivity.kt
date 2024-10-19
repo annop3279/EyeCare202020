@@ -1,4 +1,4 @@
-package com.ankn.eyecare202020
+package com.ankn.eyecare202020.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.ankn.eyecare202020.ui.theme.EyeCare202020Theme
+import com.ankn.core.ui.theme.EyeCare202020Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
