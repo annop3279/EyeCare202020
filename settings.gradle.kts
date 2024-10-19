@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "EyeCare202020"
 include(":app")
 include(":data")
+include(":domain")
+include(":design-system")
