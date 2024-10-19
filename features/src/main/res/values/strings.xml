@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EyeCare202020</string>
+    <string name="home">หน้าแรก</string>
+    <string name="screen_label">Screen label</string>
+</resources>

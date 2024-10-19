@@ -1,15 +1,23 @@
 [versions]
 agp = "8.6.1"
-kotlin = "1.9.0"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.3"
-composeBom = "2024.10.00"
+composeBom = "2024.09.03"
 appcompat = "1.7.0"
 material = "1.12.0"
+hilt = "2.48"
+hilt-worker = "1.2.0"
+hilt-androidx = "1.2.0"
+hilt-navigation = "1.2.0"
+hilt-testing = "2.44"
+coil = "2.5.0"
+compose-navigation = "2.8.3"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,9 +36,22 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "compose-navigation" }
+
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-androidx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt-androidx" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
+hilt-worker = { module = "androidx.hilt:hilt-work", version.ref = "hilt-worker" }
+hilt-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt-testing" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
