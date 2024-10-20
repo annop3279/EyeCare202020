@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -35,11 +37,12 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 }
 
 dependencies {
+    implementation(project(":core"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -54,6 +57,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+    debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.material3)
 
     // compose navigation
@@ -61,4 +65,17 @@ dependencies {
 
     // Coil
     implementation(libs.coil)
+
+    // hilt
+    implementation(libs.hilt.navigation)
+    implementation(libs.hilt.android)
+        implementation(libs.hilt.worker)
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.hilt.androidx.compiler)
+
+    // Accompanist
+    implementation(libs.accompanist.systemuicontroller)
+
+    // accompanist permissions
+    implementation(libs.accompanist.permissions)
 }

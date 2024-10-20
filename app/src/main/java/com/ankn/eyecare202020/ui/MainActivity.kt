@@ -6,9 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
-import com.ankn.core.ui.theme.EyeCare202020Theme
+import com.ankn.core.ui.theme.AppTheme
+import com.ankn.features.navigation.MyBottomNav
+import com.ankn.features.navigation.Screen
 import com.ankn.features.navigation.SetUpNavGraph
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,9 +27,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
-            EyeCare202020Theme {
+            AppTheme(darkTheme = true) {
                 SetUpNavGraph(navController = navController)
             }
         }
     }
 }
+

@@ -33,17 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+        jvmTarget = "1.8"
     }
     packaging {
         resources {
@@ -75,10 +69,13 @@ dependencies {
     // hilt
     implementation(libs.hilt.navigation)
     implementation(libs.hilt.android)
-/*    implementation(libs.hilt.worker)*/
+    implementation(libs.hilt.worker)
     kapt(libs.hilt.android.compiler)
     kapt(libs.hilt.androidx.compiler)
 
     // Coil
     implementation(libs.coil)
+
+    // work manager
+    implementation(libs.work.manager)
 }
