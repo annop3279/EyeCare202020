@@ -12,7 +12,7 @@ class SharedPreferencesManager @Inject constructor(
 
     fun getReminderSettings(): ReminderSettings {
         val isEnabled = prefs.getBoolean("is_enabled", false)
-        val intervalMinutes = prefs.getInt("interval_minutes", 20)
+        val intervalMinutes = prefs.getInt("interval_minutes", 15)
         return ReminderSettings(isEnabled, intervalMinutes)
     }
 

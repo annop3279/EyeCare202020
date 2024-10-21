@@ -13,22 +13,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.ankn.core.ui.component.AppTopBar
 import com.ankn.core.ui.component.SetStatusBarColor
 import com.ankn.features.R
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -59,6 +54,7 @@ fun HomeScreen(
     }
 
     LaunchedEffect(key1 = Unit) {
+        // Check permission state when the screen is first composed
         if (!uiState.hasNotificationPermission) {
             notificationPermissionState.launchPermissionRequest()
         }
@@ -67,11 +63,15 @@ fun HomeScreen(
     HomeContent(
         uiState = uiState,
         onSwitchToggle = {
+            //   viewModel.showNotificationTest()
             if (uiState.hasNotificationPermission) {
-                viewModel.updateSettings(!uiState.isReminderEnabled, viewModel.reminderSettings.value.intervalMinutes)
+                viewModel.updateSettings(!uiState.isReminderEnabled, uiState.reminderSettings.intervalMinutes)
             } else {
                 notificationPermissionState.launchPermissionRequest()
             }
+        },
+        onRequestPermission = {
+            notificationPermissionState.launchPermissionRequest()
         }
     )
 }
@@ -80,25 +80,12 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     uiState: HomeUiState,
-    onSwitchToggle: () -> Unit
+    onSwitchToggle: () -> Unit,
+    onRequestPermission: () -> Unit
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.home),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = Color.White
-                    )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White
-                )
-            )
+            AppTopBar(stringResource(R.string.home))
         }
     ) { paddingValues ->
         Column(
@@ -109,8 +96,6 @@ fun HomeContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
-            // Text below the switch
             Text(
                 text = stringResource(R.string.content_title),
                 modifier = Modifier.padding(top = 16.dp),
@@ -120,30 +105,27 @@ fun HomeContent(
                 )
             )
 
-            // Spacing
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Text below the switch
             Text(
                 text = stringResource(R.string.start_stop_button),
                 modifier = Modifier.padding(top = 16.dp),
                 textAlign = TextAlign.Center
             )
 
-            // Spacing
             Spacer(modifier = Modifier.height(24.dp))
 
             Box(
                 modifier = Modifier
                     .size(100.dp)
-                    .clickable (onClick = onSwitchToggle)
+                    .clickable(onClick = onSwitchToggle)
             ) {
                 Image(
                     painter = painterResource(
                         id = if (uiState.isReminderEnabled) {
-                            R.drawable.ic_switch_on  // Replace with your actual resource name for the "on" image
+                            R.drawable.ic_switch_on
                         } else {
-                            R.drawable.ic_switch_off  // Replace with your actual resource name for the "off" image
+                            R.drawable.ic_switch_off
                         }
                     ),
                     contentDescription = if (uiState.isReminderEnabled) "Turn off reminders" else "Turn on reminders",
@@ -153,7 +135,14 @@ fun HomeContent(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            Text(
+                text = uiState.statusText,
+                modifier = Modifier.padding(top = 16.dp),
+                textAlign = TextAlign.Center
+            )
+
             if (!uiState.hasNotificationPermission) {
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Notification permission is required for reminders",
                     modifier = Modifier.padding(16.dp),
@@ -161,16 +150,6 @@ fun HomeContent(
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
-            // Spacing
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Text(
-                text = uiState.statusText,
-                modifier = Modifier.padding(top = 16.dp),
-                textAlign = TextAlign.Center
-            )
         }
     }
 }
-

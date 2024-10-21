@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.ankn.core.ui.component.AppTopBar
 import com.ankn.core.ui.component.SetStatusBarColor
 
 
@@ -43,21 +44,7 @@ fun SettingScreen(
     SetStatusBarColor(darkIcons = false)
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(com.ankn.features.R.string.setting),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = Color.White
-                    )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = Color.White
-                )
-            )
+            AppTopBar(stringResource(com.ankn.features.R.string.setting))
         }
     ) { paddingValues ->
         Column(
